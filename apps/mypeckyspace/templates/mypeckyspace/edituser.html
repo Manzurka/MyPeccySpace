@@ -1,0 +1,21 @@
+<html>
+   <head>
+        <meta charset="utf-8">
+        <title>User {{request.session.name}}</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'mypeckyspace/style.css' %}">
+   </head>
+   <body>
+       <main>
+         <div id="links">
+             <a href="/dashboard">Home</a>
+             <a href="/">Logout</a>
+         </div>
+         <h1>{{user.name}}'s profile</h1>
+         <h3>Username: {{user.username}}</h3>
+         <h3>Location: {{user.location}}</h3>
+         <h3>Skill set: {{user.skill}}</h3>
+         <img src="{{ user.image.url }}" alt="Peccy Image">
+       </main>
+   </body>
+</html>

@@ -4,74 +4,141 @@
          <title>Welcome</title>
          {% load static%}
          <link rel="stylesheet" href="{% static 'mypeckyspace/style.css' %}">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+         <script type="text/javascript" src="{% static 'mypeckyspace/js/api.js' %}"></script>
+
    </head>
    <body>
-        <h1>WELCOME!</h1>
+        <h1>MyPeccySpace</h1>
         <div class="welcome" >
             <h1>Registration</h1>
-            <form action='validate' method='post'>    
+            <form action='/validate' method='post'>
                 {% csrf_token %}
-                <div>
+                <div class="row">
+                  <div class="col-md-4">
+
                     <label>
-                         Name: <input type="text" name="name" placeholder="Enter your name" style="margin-left: 49px;">
+                         Name: <input type="text" name="name" placeholder="Enter your name">
                     </label>
+                  </div>
                 </div>
                 {% for message in messages %}
                     {% if 'name' in message.extra_tags %}
                         <p class="errors">{{message}}</p>
                     {% endif %}
                 {% endfor %}
-            <div>
-                    <br>
+
+                <div class="row">
+                  <div class="col-md-4">
+
                 <label>
-                    Last Name: <input type="text" name="username"  placeholder="Enter your username" style="margin-left: 50px;">
+                    Username: <input type="text" name="username"  placeholder="Enter your username">
                 </label>
-                  
+
+              </div>
             </div>
             {% for message in messages %}
-                {% if 'username' in message.extra_tags %}
+                {% if 'user' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
-            <div>
-                <br>
+            <div class="row">
+              <div class="col-md-4">
+
                     <label>
-                    Email: <input type="email" name="email"  placeholder="Enter your email address" style="margin-left: 80px;">
+                    Email: <input type="email" name="email"  placeholder="Enter your email address">
                 </label>
+              </div>
             </div>
             {% for message in messages %}
                 {% if 'email' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
-            <div>
-                    <br>
+
+            <div class="row">
+              <div class="col-md-8">
+
                 <label>
-                    Password: <input type="password" name="password"  placeholder="Create a password (8 char)" style="margin-left: 57px;" >
+                  Location
+                 <select name="location">
+                     <option value="none">Select</option>
+                     <option value="AZA">AZA</option>
+                     <option value="SJO">SJO</option>
+                     <option value="GFK">GFK</option>
+                     <option value="SEA">SEA</option>
+                     <option value="DET">DET</option>
+                 </select>
+
+             </label>
+             {% for message in messages %}
+                 {% if 'location' in message.extra_tags %}
+                     <p class="errors">{{message}}</p>
+                 {% endif %}
+             {% endfor%}
+           </div>
+         </div>
+
+
+         <div class="row">
+           <div class="col-md-8">
+
+               <label>
+                 Skill Set
+                  <select name="skill">
+                      <option value="none">Select</option>
+                      <option value="IIDP">IIDP</option>
+                      <option value="FBA">FBA</option>
+                      <option value="M@">M@</option>
+                      <option value="SPRONSORED PRODUCTS">SPRONSORED PRODUCTS</option>
+                  </select>
+
+              </label>
+              {% for message in messages %}
+                  {% if 'skill' in message.extra_tags %}
+                      <p class="errors">{{message}}</p>
+                  {% endif %}
+              {% endfor%}
+            </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+
+                <label>
+                    Password: <input type="password" name="password"  placeholder="Create a password (8 char)">
                 </label>
                 <!-- <p>*Password should be at least 8 characters</p> -->
+              </div>
             </div>
+
             {% for message in messages %}
                 {% if 'password' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor %}
-            <div>
-                    <br>
+
+            <div class="row">
+              <div class="col-md-4">
+
                     <label>
-                        PW Confirmation: 
-                        <input type="password" name="pw_confirmation"  placeholder="Re-enter your password" style="margin-left: 5px;">
+                        PW Confirmation:
+                        <input type="password" name="pw_confirmation"  placeholder="Re-enter your password">
                     </label>
+                  </div>
             </div>
+
             {% for message in messages %}
                 {% if 'pw_confirmation' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor %}
-            
-                <input type="submit" value="Register" style="margin:20px 20px 20px 220px;">
+
+                <input type="submit" value="Register" style="margin:20px 20px 20px 220px;" class="btn">
          </form>
        </div>
+
+
         <div class ="welcome">
             <h1>Login</h1>
             {% for message in messages %}
@@ -81,22 +148,31 @@
             {% endfor %}
             <form action='login' method='post'>
                 {% csrf_token %}
-                <div> 
+
+                <div class="row">
+                  <div class="col-md-4">
                     <label>
-                        Email: 
-                        <input type="email" name="email"  placeholder="Enter your email address" style="margin-left: 80px;">
+                        Email:
+                        <input type="email" name="email"  placeholder="Enter your email address">
                     </label>
+                  </div>
                 </div>
-                <div>
-                    <br>
+
+
+                <div class="row">
+                  <div class="col-md-4">
                     <label>
-                        Password: 
-                        <input type="password" name="password"  placeholder="Enter your password" style="margin-left: 57px;" >
+                        Password:
+                        <input type="password" name="password"  placeholder="Enter your password">
                     </label>
+                  </div>
                 </div>
-                <input type="submit" value="Login" style="margin:20px 20px 20px 240px;">
+                <input type="submit" value="Login" style="margin:20px 20px 20px 240px;" class="btn">
             </form>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
-         

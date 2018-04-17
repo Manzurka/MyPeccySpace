@@ -7,7 +7,7 @@ from django.db import models
 import bcrypt
 import re
 NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@amazon+\.com+$')
 
 class UserManager(models.Manager):
     def validation(self, postData):
@@ -19,22 +19,28 @@ class UserManager(models.Manager):
                 errors['name']="Invalid Name!"
         else:
             errors['name']="Name is required!"
-        
+
         if len(postData['username'])>0:
             if len(postData['username']) < 2:
-                errors['username']="Username cannot be less than 2 characters!"
-            if not NAME_REGEX.match(postData['last_name']):
-                errors['username']="Invalid username!"
-        else: 
-             errors['username']="Username is required!"
+                errors['user']="Username cannot be less than 2 characters!"
+            if not NAME_REGEX.match(postData['username']):
+                errors['user']="Invalid username!"
+        else:
+             errors['user']="Username is required!"
 
         if len(postData['email'])>0:
             if not EMAIL_REGEX.match(postData['email']):
-                errors['email']="Invalid Email Address!"
+                errors['email']="Please input an Amazon email alias"
             if self.filter(email=postData['email']):
                 errors['email']="This email is in use.Please login!"
         else:
              errors['email']="Email Address is required!"
+
+        if postData['location'] == 'none':
+            errors['location']="Please select a location"
+
+        if postData['skill'] == 'none':
+            errors['skill']="Please select a skill set"
 
         if len(postData['password'])>0:
             if len(postData['password']) < 8:
@@ -44,7 +50,7 @@ class UserManager(models.Manager):
 
         if postData['pw_confirmation']!= postData['password']:
             errors['pw_confirmation']="Password should match!"
-       
+
         return errors
 
     def login_validation(self, postData):
@@ -60,8 +66,9 @@ class UserManager(models.Manager):
                 errors['login'] = "Please enter the email address!"
             else:
                 errors['login'] = "We could not match this email address to any user in our database!"
-        
+
         return errors
+
 
 class User(models.Model):
     name=models.CharField(max_length=255)
@@ -70,16 +77,19 @@ class User(models.Model):
     location=models.CharField(max_length=255)
     skill=models.CharField(max_length=255)
     password=models.CharField(max_length=255)
-    image=models.ImageField(upload_to="media/", default="media/peccy.png", width_field=None, height_field=None, max_length=200)
+    image=models.ImageField(upload_to="media/", default="peccy.png", width_field=None, height_field=None, max_length=200)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     objects=UserManager()
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
     title=models.CharField(max_length=255)
     content=models.TextField()
-    uploaded_file=models.FileField(blank=True, null=True, upload_to="media/documents/", max_length=200)
+    uploaded_file=models.FileField(upload_to="media/documents/", max_length=200)
     creator=models.ForeignKey(User, related_name="posts")
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
@@ -92,8 +102,9 @@ class Comment(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+
 class Award(models.Model):
-    name=models.CharField(max_length=255)
+    award=models.CharField(max_length=255)
     users=models.ManyToManyField(User, related_name="awards")
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
