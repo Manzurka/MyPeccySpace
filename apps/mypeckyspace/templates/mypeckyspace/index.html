@@ -6,7 +6,7 @@
          <link rel="stylesheet" href="{% static 'mypeckyspace/style.css' %}">
    </head>
    <body>
-        <h1>WELCOME!</h1>
+        <h1>Welcome to MyPeccySpace!</h1>
         <div class="welcome" >
             <h1>Registration</h1>
             <form action='validate' method='post'>    
@@ -24,15 +24,50 @@
             <div>
                     <br>
                 <label>
-                    Last Name: <input type="text" name="username"  placeholder="Enter your username" style="margin-left: 50px;">
+                    Username: <input type="text" name="username"  placeholder="Enter your username" style="margin-left: 50px;">
                 </label>
                   
             </div>
             {% for message in messages %}
-                {% if 'username' in message.extra_tags %}
+                {% if 'user' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
+            <div>
+                    <br>
+                <label>
+                    Skill: 
+                    <select name="skill">
+                            <option value="none">Select</option>
+                            <option value="IIDP">IIDP</option>
+                            <option value="FBA">FBA</option>
+                            <option value="M@">M@</option>
+                    </select>
+                </label>
+            </div>
+            {% for message in messages %}
+                {% if 'skill' in message.extra_tags %}
+                    <p class="errors">{{message}}</p>
+                {% endif %}
+            {% endfor%}
+            <div>
+                <label>
+                    Location: 
+                    <select name="location">
+                        <option value="none">Select</option>
+                        <option value="AZA">AZA</option>
+                        <option value="SJO">SJO</option>
+                        <option value="GFK">GFK</option>
+                        <option value="SEA">SEA</option>
+                        <option value="HYD">HYD</option>
+                    </select>
+                </label>
+            {% for message in messages %}
+                {% if 'location' in message.extra_tags %}
+                    <p class="errors">{{message}}</p>
+                {% endif %}
+            {% endfor%}
+            </div>
             <div>
                 <br>
                     <label>
