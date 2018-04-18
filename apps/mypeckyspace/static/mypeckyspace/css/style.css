@@ -2,6 +2,15 @@ body{
     width:1000px;
 }
 
+ul li{
+  display: inline;
+  padding: 10px;
+}
+
+h5 {
+  color: red;
+}
+
 .welcome {
     display:inline-block;
     vertical-align:top;
@@ -14,11 +23,7 @@ body{
     left:800px;
 
 }
-#bookshelf {
-    width:65%;
-    display:inline-block;
-    vertical-align: top;
-}
+
 .checked {
     color: orange;
 }
