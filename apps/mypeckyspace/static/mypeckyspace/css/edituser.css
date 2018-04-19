@@ -1,0 +1,12 @@
+main {
+  margin-left: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.errors, #links a {
+  color: #ff9800;
+}
+
+.btn-sumbit {
+  background-color: #ff9800;
+}

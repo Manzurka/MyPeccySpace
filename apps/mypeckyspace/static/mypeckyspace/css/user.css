@@ -1,0 +1,16 @@
+#links a {
+  color: #ff9800;
+}
+
+main {
+  font-family: 'Raleway', sans-serif;
+}
+
+ul li {
+  list-style-type: none;
+  text-align: center;
+}
+
+.btn {
+  background-color: #ff9800;
+}

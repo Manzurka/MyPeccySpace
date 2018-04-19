@@ -3,15 +3,19 @@
          <meta charset="utf-8">
          <title>Edit Profile for {{request.session.name}}</title>
          {% load static %}
-         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
+         <link rel="stylesheet" href="{% static 'mypeckyspace/css/edituser.css' %}">
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     </head>
     <body>
         <main>
-        <div id="links">
-            <a href="/dashboard">Home</a> 
-            <a href="/">Logout</a> 
+        <div id="links" align='center'>
+            <a href="/dashboard" class="btn btn-light">Home</a>
+            <a href="/" class="btn btn-light">Logout</a>
         </div>
+
+        <br>
+
         <form action="update" method="post">
             {% csrf_token %}
             <div>
@@ -25,7 +29,7 @@
                     {% endif %}
                 {% endfor %}
             <div>
-                    <br>
+
                 <label>
                    Username: <input type="text" name="username"  placeholder="Enter your username" value="{{user.username}}">
                 </label>
@@ -36,16 +40,16 @@
                 {% endif %}
             {% endfor%}
             <div>
-                    <br>
+
                         <label>
                         Email: <input type="email" name="email"  placeholder="Enter your email address" value="{{user.email}}" readonly>
                     </label>
                 </div>
-                <p class="errors">*The email address cannot be changed.</p>
+                <p class="errors"><strong>*The email address cannot be changed.</strong></p>
                 <div>
-                        <br>
+
                     <label>
-                        Skill: 
+                        Skill:
                         <select name="skill">
                                 <option selected value="{{user.skill}}">{{user.skill}}</option>
                                 {% if user.skill != 'IIDP' %}
@@ -63,7 +67,7 @@
 
                 <div>
                     <label>
-                    Location: 
+                    Location:
                     <select name="location">
                             <option selected value="{{user.location}}">{{user.location}}</option>
                                 {% if user.location != 'AZA' %}
@@ -95,19 +99,19 @@
                 {% endfor %}
             </div>
             <div>
-                  <br>
+
                         <label>
-                            PW Confirmation: 
-                            <input type="password" name="pw_confirmation"  placeholder="Re-enter your password" style="margin-left: 5px;">
+                            PW Confirmation:
+                            <input type="password" name="pw_confirmation"  placeholder="Re-enter your password" style="margin-left: 3px;">
                         </label>
-            
+
                 {% for message in messages %}
                     {% if 'pw_confirmation' in message.extra_tags %}
                         <p class="errors">{{message}}</p>
                     {% endif %}
                 {% endfor %}
             </div>
-                <input type="submit" value="Save">
+                <input type="submit" value="Save Profile" class="btn-sumbit btn">
         </form>
             Profile picture:
             <!-- {% for message in messages %}
@@ -118,7 +122,9 @@
         <form action="upload" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" name="image">
-            <button type="submit">Upload</button>
+            <br>
+            <br>
+            <button type="submit" class="btn">Upload</button>
         </form>
         </main>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

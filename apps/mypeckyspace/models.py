@@ -19,13 +19,13 @@ class UserManager(models.Manager):
                 errors['name']="Invalid Name!"
         else:
             errors['name']="Name is required!"
-        
+
         if len(postData['username'])>0:
             if len(postData['username']) < 2:
                 errors['user']="Username cannot be less than 2 characters!"
             if not NAME_REGEX.match(postData['username']):
                 errors['user']="Invalid username!"
-        else: 
+        else:
              errors['user']="Username is required!"
 
         if len(postData['email'])>0:
@@ -65,8 +65,8 @@ class UserManager(models.Manager):
             if len(postData['email'])== 0:
                 errors['login'] = "Please enter the email address!"
             else:
-                errors['login'] = "We could not match this email address to any user in our database!"
-        
+                errors['login'] = "Email address not matching database!"
+
         return errors
     def update_validation(self, postData):
         errors={}
@@ -77,16 +77,16 @@ class UserManager(models.Manager):
                 errors['name']="Invalid Name!"
         else:
             errors['name']="Name is required!"
-        
+
         if len(postData['username'])>0:
             if len(postData['username']) < 2:
                 errors['user']="Username cannot be less than 2 characters!"
             if not NAME_REGEX.match(postData['username']):
                 errors['user']="Invalid username!"
-        else: 
+        else:
              errors['user']="Username is required!"
 
-        
+
         if len(postData['password'])>0:
             if len(postData['password']) < 8:
                 errors['password']="Password is less than 8 characters!"
