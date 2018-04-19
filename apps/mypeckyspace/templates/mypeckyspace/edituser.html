@@ -110,11 +110,11 @@
                 <input type="submit" value="Save">
         </form>
             Profile picture:
-            {% for message in messages %}
+            <!-- {% for message in messages %}
                 {% if 'info' in message.extra_tags %}
                 <p class="errors">{{message}}</p>
                 {%endif%}
-            {% endfor%}
+            {% endfor%} -->
         <form action="upload" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" name="image">

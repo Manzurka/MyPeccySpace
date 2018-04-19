@@ -8,4 +8,4 @@ class ImageUploadForm(forms.Form):
 
 class FileUploadForm(forms.Form):
     """File upload form."""
-    uploaded_file = forms.FileField()
+    upload = forms.FileField()
