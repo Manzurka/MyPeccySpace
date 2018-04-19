@@ -7,7 +7,7 @@ from django.db import models
 import bcrypt
 import re
 NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@amazon+\.com+$')
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class UserManager(models.Manager):
     def validation(self, postData):
@@ -19,13 +19,13 @@ class UserManager(models.Manager):
                 errors['name']="Invalid Name!"
         else:
             errors['name']="Name is required!"
-
+        
         if len(postData['username'])>0:
             if len(postData['username']) < 2:
                 errors['username']="Username cannot be less than 2 characters!"
             if not NAME_REGEX.match(postData['last_name']):
                 errors['username']="Invalid username!"
-        else:
+        else: 
              errors['username']="Username is required!"
 
         if len(postData['email'])>0:
@@ -44,7 +44,7 @@ class UserManager(models.Manager):
 
         if postData['pw_confirmation']!= postData['password']:
             errors['pw_confirmation']="Password should match!"
-
+       
         return errors
 
     def login_validation(self, postData):
@@ -60,7 +60,7 @@ class UserManager(models.Manager):
                 errors['login'] = "Please enter the email address!"
             else:
                 errors['login'] = "We could not match this email address to any user in our database!"
-
+        
         return errors
 
 class User(models.Model):
