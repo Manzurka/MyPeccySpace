@@ -4,10 +4,9 @@
          <title>Dashboard</title>
          <meta name="viewport" content="width=device-width, initial-scale=1">
          {% load static %}
-         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+         <link rel="stylesheet" href="{% static 'mypeckyspace/css/style2.css' %}">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     </head>
     <body>
         <h1>Welcome <a href="user/{{request.session.id}}">{{request.session.name}}</a>!</h1>
@@ -21,8 +20,8 @@
         {% endfor %}
         <form method="get" action="/results">
             {% csrf_token %}
-            <input  id="search_box" type="text" name="search_box"  placeholder="Enter keyword" >
-            <button id="search_submit" type="submit">Search</button>
+            <input  id="search_box" type="text" name="search_box"  placeholder="Enter keyword">
+            <button id="search_submit" type="submit" class="btn btn-secondary">Search</button>
         </form>
         <div id="posts">
             <h2>Recent Posts:</h2>
@@ -31,7 +30,7 @@
                     <a href="?page=1"></a>
                     <a href="?page={{posts.paginator.page_range}}"></a>
                 {% endif %}
-                
+
                 {% for num in posts.paginator.page_range %}
                     {% if posts.number == num %}
                         <p>{{num}}</p>
@@ -42,7 +41,7 @@
                     <a href="?page={{posts.next_page_number}}"></a>
                     <a href="?page={{posts.paginator.num_pages}}"></a>
                 {% endif %}
-                
+
             </div> -->
             {% for post in posts %}
                 <h3><a href="post/{{post.id}}">{{post.title}}</a></h3>
@@ -70,10 +69,10 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                {% endif %}  
+                {% endif %}
                 <form action="{{post.id}}/comment" method="post">
                     {% csrf_token %}
-                    <input type="text" name="text" placeholder="Enter comment"> 
+                    <input type="text" name="text" placeholder="Enter comment">
                     <input type="submit" value="Comment">
                 </form>
             {% endfor %}
@@ -81,7 +80,7 @@
                 <form action="/add" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label>
-                            Add Question or Share your knowledge: 
+                            Add Question or Share your knowledge:
                             <br>
                             <input type="text" name="title" placeholder="Enter title">
                             <br>
@@ -89,10 +88,10 @@
                             <textarea rows=5 cols=25 type="text" name="content" placeholder="Enter text"></textarea>
                     </label>
                     <input type="submit" value="Post">
-                
-                    
+
+
                     <input type="file" name="myfile">
-                    
+
                 </form>
             </div>
 
@@ -105,5 +104,9 @@
             </ul>
 
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

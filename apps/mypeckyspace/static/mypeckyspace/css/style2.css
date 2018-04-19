@@ -1,6 +1,6 @@
 #links {
     position: relative;
-    left:900px;
+    left:800px;
 }
 
 #scrollbar {
@@ -13,10 +13,9 @@
     height: 100px;
 
 }
-.errors {
-    color:red;
-    font-weight:bold;
-    padding-left:20px;
+
+.checked {
+    color: orange;
 }
 
 /* Scrollbar styles */
@@ -32,9 +31,9 @@ border-radius: 10px;
 
 ::-webkit-scrollbar-thumb {
 border-radius: 10px;
-background: #ccc;  
+background: #ccc;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-background: #999;  
+background: #999;
 }

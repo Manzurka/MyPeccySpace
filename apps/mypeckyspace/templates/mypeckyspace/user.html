@@ -8,17 +8,17 @@
     <body>
         <main>
             <div id="links">
-                <a href="/dashboard">Home</a> 
-                <a href="/">Logout</a> 
+                <a href="/dashboard">Home</a>
+                <a href="/">Logout</a>
             </div>
             <h1>{{user.name}}'s profile</h1>
-            
-            {% ifequal user.image None %}
-                <img src="{% static "media/peccy.png" %}" width="200" alt="Default Image">
+
+            {% if user.image %}
+              <img src="{{user.image.url}}" width="200" alt="User's Image">
             {% else %}
-                <img src="{{user.image.url}}" width="200" alt="User's Image">
-            {% endifequal %}
-            
+              <img src="{% static "media/peccy.png" %}" width="200" alt="Default Image">
+            {% endif %}
+
             <h3>Username: {{user.username}}</h3>
             <h3>Location: {{user.location}}</h3>
             <h3>Skill set: {{user.skill}}</h3>
@@ -31,15 +31,15 @@
             {% if user.id == request.session.id %}
             <form action="{{user.id}}/awards" method="post">
                 {% csrf_token %}
-                <label> 
+                <label>
                        <input type="text" name="award" placeholder="Enter award" style="margin-left: 49px;">
                        <input type="hidden" name="user_id" value="{{user.id}}">
                 </label>
                 <input type="submit" value="Add award">
             </form>
             {% endif %}
-           
-           
+
+
 
             {% if user.id == request.session.id %}
                 <a href="{{user.id}}/edit">Edit my portfolio</a>
