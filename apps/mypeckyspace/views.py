@@ -64,10 +64,12 @@ def results(request):
                 return render(request, 'mypeckyspace/results.html', context)
 
 def showUser(request, id):
+    
     context = {
         "user": User.objects.get(id=id),
         "awards": Award.objects.all(),
-        "user_awards" : User.objects.get(id=id).awards.all()
+        "user_awards" : User.objects.get(id=id).awards.all(),
+       
     }
     return render(request, 'mypeckyspace/user.html', context)
 

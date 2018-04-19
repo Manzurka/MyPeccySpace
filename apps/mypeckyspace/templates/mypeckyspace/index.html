@@ -3,40 +3,63 @@
          <meta charset="utf-8">
          <title>Welcome</title>
          {% load static%}
-         <link rel="stylesheet" href="{% static 'mypeckyspace/style.css' %}">
+         <link rel="stylesheet" href="{% static 'mypeckyspace/css/style.css' %}">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+         <script type="text/javascript" src="{% static 'mypeckyspace/js/api.js' %}"></script>
    </head>
    <body>
-        <h1>Welcome to MyPeccySpace!</h1>
-        <div class="welcome" >
+
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">Welcome to MyPeccySpace!</h1>
+            <p class="lead">The Seller Support assoicate hub for Questions and Answers</p>
+          </div>
+        </div>
+
+
+        <div class="left-side">
+        <div class="welcome">
             <h1>Registration</h1>
-            <form action='validate' method='post'>    
+
+            <form action='validate' method='post'>
                 {% csrf_token %}
-                <div>
+                <div class="row">
+                      <div class="col-md-6">
                     <label>
-                         Name: <input type="text" name="name" placeholder="Enter your name" style="margin-left: 49px;">
+                         Name: <input type="text" name="name" placeholder="Enter your name">
                     </label>
+                  </div>
                 </div>
+
                 {% for message in messages %}
                     {% if 'name' in message.extra_tags %}
                         <p class="errors">{{message}}</p>
                     {% endif %}
                 {% endfor %}
             <div>
-                    <br>
+
+
+                    <div class="row">
+                      <div class="col-md-6">
                 <label>
-                    Username: <input type="text" name="username"  placeholder="Enter your username" style="margin-left: 50px;">
+                    Username: <input type="text" name="username"  placeholder="Enter your username">
                 </label>
-                  
+              </div>
+            </div>
+
             </div>
             {% for message in messages %}
                 {% if 'user' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
-            <div>
-                    <br>
+
+              <div class="row">
+                <div class="col-md-6">
+
                 <label>
-                    Skill: 
+                    Skill:
                     <select name="skill">
                             <option value="none">Select</option>
                             <option value="IIDP">IIDP</option>
@@ -44,15 +67,21 @@
                             <option value="M@">M@</option>
                     </select>
                 </label>
+
+              </div>
             </div>
+
             {% for message in messages %}
                 {% if 'skill' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
-            <div>
+
+            <div class="row">
+              <div class="col-md-6">
+
                 <label>
-                    Location: 
+                    Location:
                     <select name="location">
                         <option value="none">Select</option>
                         <option value="AZA">AZA</option>
@@ -67,47 +96,62 @@
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
-            </div>
-            <div>
-                <br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+
+
                     <label>
-                    Email: <input type="email" name="email"  placeholder="Enter Amazon email address" style="margin-left: 80px;">
+                    Email: <input type="email" name="email"  placeholder="Enter Amazon email address">
                 </label>
+              </div>
             </div>
             {% for message in messages %}
                 {% if 'email' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor%}
-            <div>
-                    <br>
+
+            <div class="row">
+              <div class="col-md-6">
+
+
                 <label>
-                    Password: <input type="password" name="password"  placeholder="Create a password (8 char)" style="margin-left: 57px;" >
+                    Password: <input type="password" name="password"  placeholder="Create a password (8 char)">
                 </label>
                 <!-- <p>*Password should be at least 8 characters</p> -->
+              </div>
             </div>
             {% for message in messages %}
                 {% if 'password' in message.extra_tags %}
                     <p class="errors">{{message}}</p>
                 {% endif %}
             {% endfor %}
-            <div>
-                    <br>
-                    <label>
-                        PW Confirmation: 
-                        <input type="password" name="pw_confirmation"  placeholder="Re-enter your password" style="margin-left: 5px;">
-                    </label>
-            </div>
-            {% for message in messages %}
-                {% if 'pw_confirmation' in message.extra_tags %}
-                    <p class="errors">{{message}}</p>
-                {% endif %}
-            {% endfor %}
-            
 
-                <input type="submit" value="Register" style="margin:20px 20px 20px 220px;">
+            <div class="row">
+              <div class="col-md-6">
+
+
+                    <label>
+                        PW Confirmation:
+                        <input type="password" name="pw_confirmation"  placeholder="Re-enter your password">
+                    </label>
+                    {% for message in messages %}
+                    {% if 'pw_confirmation' in message.extra_tags %}
+                    <p class="errors">{{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+              </div>
+            </div>
+
+
+                <input type="submit" value="Register" class="btn btn-outline-success">
          </form>
        </div>
+
+
         <div class ="welcome">
             <h1>Login</h1>
             {% for message in messages %}
@@ -117,22 +161,65 @@
             {% endfor %}
             <form action='login' method='post'>
                 {% csrf_token %}
-                <div> 
+                <div class="row">
+                  <div class="col-md-4">
+
                     <label>
-                        Email: 
-                        <input type="email" name="email"  placeholder="Enter your email address" style="margin-left: 80px;">
+                        Email:
+                        <input type="email" name="email"  placeholder="Enter your email address">
                     </label>
+                  </div>
                 </div>
-                <div>
-                    <br>
+
+                <div class="row">
+                  <div class="col-md-8">
                     <label>
-                        Password: 
-                        <input type="password" name="password"  placeholder="Enter your password" style="margin-left: 57px;" >
+                        Password:
+                        <input type="password" name="password"  placeholder="Enter your password">
                     </label>
+                  </div>
                 </div>
-                <input type="submit" value="Login" style="margin:20px 20px 20px 240px;">
+                <input type="submit" value="Login" class="btn btn-outline-primary">
             </form>
         </div>
+      </div>
+
+
+        <br>
+        <br>
+
+        <div class="right-side">
+          <h3>Associate Quicklinks:</h3>
+          <div id="tools" align='right'>
+            <nav>
+              <ul>
+                <li><a href="https://mytime-lite.aka.corp.amazon.com/wfc/applications/suitenav/navigation.do?ESS=true?redirect=/wfc/applications/wtk/html/ess/timestamp.jsp" target="_blank">Kronos</a></li>
+                <li><a href="https://sellercentral.amazon.com/forums/" target="_blank">Seller Forums</a></li>
+                <li><a href="https://share.amazon.com/sites/nasolutionspace/" target="_blank">SRD</a></li>
+                <li><a href="https://w.amazon.com/index.php/Main_Page" target="_blank">Wiki</a></li>
+                <li><a href="https://hub.amazon.work/employees/101972614/dashboard" target="_blank">Amazon Hub</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <h3>Your Amazon News:</h3>
+
+          <div id="url"></div>
+
+        </div>
+
+        <footer>
+          <span>Contact Us</span>
+          <br>
+          <span><a href="">1-800-lab206-az</a></span>
+          <br>
+          <a href="https://www.facebook.com"><img src="{% static "media/social_icons.png" %}" width="350"></a>
+        </footer>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
-         

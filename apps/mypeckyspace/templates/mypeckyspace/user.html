@@ -20,7 +20,7 @@
             {% endifequal %}
             
             <h3>Username: {{user.username}}</h3>
-            <h3>Member since: {{user.created_at}</h3>
+            <h3>Member since: {{user.created_at.day}}/{{user.created_at.month}}/{{user.created_at.year}}</h3>
             <h3>Location: {{user.location}}</h3>
             <h3>Skill set: {{user.skill}}</h3>
             <h3>Awards or certifications:</h3>
