@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^page5$', views.page5),
     url(r'^user/(?P<id>\d+)/awards$', views.awards),
     url(r'^post/(?P<id>\d+)/uploadfile$', views.uploadfile),
+    url(r'^post/(?P<id>\d+)/file$', views.showfile),
 ] 

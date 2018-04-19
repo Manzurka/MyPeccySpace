@@ -1,0 +1,17 @@
+<html>
+    <head>
+         <meta charset="utf-8">
+         <title>Attachment file for Post: '{{post.title}}'</title>
+         {% load static %}
+         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
+    </head>
+    <body>
+     
+            <div id="links">
+                <a href="/post/{{post.id}}">Go Back</a>
+                <a href="/dashboard">Home</a> 
+                <a href="/">Logout</a> 
+            </div>
+            <img src="{{post.upload.url}}" alt="The file attachment for post: '{{post.title}}'">
+    </body>
+</html>

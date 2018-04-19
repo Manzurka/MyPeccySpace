@@ -20,6 +20,7 @@
             {% endif %}
 
             <h3>Username: {{user.username}}</h3>
+            <h3>Member since: {{user.created_at.day}}/{{user.created_at.month}}/{{user.created_at.year}}</h3>
             <h3>Location: {{user.location}}</h3>
             <h3>Skill set: {{user.skill}}</h3>
             <h3>Awards or certifications:</h3>
@@ -28,6 +29,7 @@
                         <li>{{user_award.award}}</li>
                 {% endfor %}
             </ul>
+
             {% if user.id == request.session.id %}
             <form action="{{user.id}}/awards" method="post">
                 {% csrf_token %}
@@ -38,9 +40,8 @@
                 <input type="submit" value="Add award">
             </form>
             {% endif %}
-
-
-
+           
+           
             {% if user.id == request.session.id %}
                 <a href="{{user.id}}/edit">Edit my portfolio</a>
             {% endif %}

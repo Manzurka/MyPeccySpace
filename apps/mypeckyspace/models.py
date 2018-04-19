@@ -116,7 +116,7 @@ class User(models.Model):
 class Post(models.Model):
     title=models.CharField(max_length=255)
     content=models.TextField()
-    uploaded_file=models.FileField(upload_to='documents/', default=None)
+    upload=models.FileField(upload_to='documents/', default=None)
     creator=models.ForeignKey(User, related_name="posts")
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)

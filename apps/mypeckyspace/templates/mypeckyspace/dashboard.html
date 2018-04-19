@@ -46,7 +46,10 @@
             {% for post in posts %}
                 <h3><a href="post/{{post.id}}">{{post.title}}</a></h3>
                 <p>{{post.content}}</p>
-                <p>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"> on {{post.created_at}}</p>
+                {% if post.upload %}
+                    <a href="post/{{post.id}}/file"><img src="{{post.upload.url}}" width="100" alt="Attached File"></a>
+                {% endif %}
+                <p>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}"><img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"></a> on {{post.created_at}}</p>
                 {% if post.creator.id == request.session.id  %}
                 <form action="{{post.id}}/delete" method="post">
                     {% csrf_token %}
@@ -89,9 +92,7 @@
                     </label>
                     <input type="submit" value="Post">
 
-
-                    <input type="file" name="myfile">
-
+                    <p>Screenshot: <input type="file" name="myfile"> </p>
                 </form>
             </div>
 

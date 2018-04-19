@@ -64,15 +64,16 @@ def results(request):
                 return render(request, 'mypeckyspace/results.html', context)
 
 def showUser(request, id):
+    
     context = {
         "user": User.objects.get(id=id),
         "awards": Award.objects.all(),
-        "user_awards" : User.objects.get(id=id).awards.all()
+        "user_awards" : User.objects.get(id=id).awards.all(),
+       
     }
     return render(request, 'mypeckyspace/user.html', context)
 
 def editUser(request, id):
-    
     return render(request, "mypeckyspace/edituser.html", {"user": User.objects.get(id=id)})
 
 def update(request, id):
@@ -110,30 +111,25 @@ def showPost(request, id):
 def addPost(request):
     userid = request.session ['id'] 
     user=User.objects.get(id=userid)
-    newpost=Post.objects.create(title=request.POST['title'], content=request.POST['content'], creator=user)
-    
-    if request.method == 'POST':
-        form=FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-           newpost.uploaded_file= form.cleaned_data['myfile']
-           newpost.save()
-           return redirect('/dashboard')
-        else:
-            messages.info(request, "Wrong format.Upload again", extra_tags='info')
-            return redirect('/dashboard')
+    newpost=Post.objects.create(title=request.POST['title'], content=request.POST['content'], upload=request.FILES['myfile'], creator=user)
+    return redirect('/dashboard')
+    # if request.method == 'POST':
+    #     form=FileUploadForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #        newpost.uploaded_file= form.cleaned_data['myfile']
+    #        newpost.save()
+    #        return redirect('/dashboard')
+    #     else:
+    #         messages.info(request, "Wrong format.Upload again", extra_tags='info')
+    #         return redirect('/dashboard')
   
 
 def uploadfile(request, id):
     post=Post.objects.get(id=id)
-    if request.method == 'POST':
-        form=FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-           post.uploaded_file= form.cleaned_data['myfile']
-           post.save()
-           return redirect(reverse ('main:post_id', kwargs={'id': post.id}))
-        else:
-            messages.info(request, "Wrong format.Upload again")
-            return redirect('/dashboard')
+    post.upload= request.FILES['myfile']
+    post.save()
+    return redirect(reverse ('main:post_id', kwargs={'id': post.id}))
+  
 
 def comment(request, id):
     user=User.objects.get(id=request.session ['id'])
@@ -175,3 +171,8 @@ def awards(request, id):
     award_user=User.objects.get(id=request.POST["user_id"])
     award.users.add(award_user)
     return redirect(reverse ('main:user_id', kwargs={'id': user.id}))
+
+def showfile(request,id):
+    
+    return render(request, 'mypeckyspace/file.html', {"post": Post.objects.get(id=id)})
+

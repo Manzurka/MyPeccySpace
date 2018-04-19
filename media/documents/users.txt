@@ -1,0 +1,25 @@
+class User(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    age = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py shell
+
+1.all_users= User.objects.all()
+2.User.objects.last()
+3.User.objects.create(first_name='Manzura', last_name ='Zakirova', email='manzurkas@gmail.com', age=29)
+  User.objects.create(first_name='Maria', last_name ='Ryazanova', email='mryazs@gmail.com', age=25)
+  User.objects.create(first_name='Karina', last_name ='Rahimova', email='sunshine1991@gmail.com', age=27)
+4.User.objects.first()
+  print all_users[0]
+5.User.objects.order_by('first_name DESC')
+6.User.objects.get(id=3).save(last_name = "Rakhimova")
+7.User.objects.get(id=2).delete()
+
+
+
