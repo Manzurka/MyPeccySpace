@@ -13,9 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='user',
-            name='image',
-            field=models.ImageField(default='static/images/peccy.png', upload_to=apps.mypeckyspace.models.user_directory_path),
-        ),
+       
     ]

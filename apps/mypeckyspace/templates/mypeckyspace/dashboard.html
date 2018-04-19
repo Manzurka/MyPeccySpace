@@ -16,6 +16,9 @@
             <a href="/user/{{request.session.id}}">Show my profile</a> |
             <a href="/">Logout</a>
         </div>
+        {% for message in messages %}
+            </li>{{ message }}</li>
+        {% endfor %}
         <form method="get" action="/results">
             {% csrf_token %}
             <input  id="search_box" type="text" name="search_box"  placeholder="Enter keyword" >
@@ -23,10 +26,28 @@
         </form>
         <div id="posts">
             <h2>Recent Posts:</h2>
+            <!-- <div class="pagination">
+                {% if posts.has_previous %}
+                    <a href="?page=1"></a>
+                    <a href="?page={{posts.paginator.page_range}}"></a>
+                {% endif %}
+                
+                {% for num in posts.paginator.page_range %}
+                    {% if posts.number == num %}
+                        <p>{{num}}</p>
+                    {% endif %}
+                {% endfor %}
+
+                {% if posts.has_next%}
+                    <a href="?page={{posts.next_page_number}}"></a>
+                    <a href="?page={{posts.paginator.num_pages}}"></a>
+                {% endif %}
+                
+            </div> -->
             {% for post in posts %}
                 <h3><a href="post/{{post.id}}">{{post.title}}</a></h3>
                 <p>{{post.content}}</p>
-                <p>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> on {{post.created_at}}</p>
+                <p>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"> on {{post.created_at}}</p>
                 {% if post.creator.id == request.session.id  %}
                 <form action="{{post.id}}/delete" method="post">
                     {% csrf_token %}
@@ -39,7 +60,7 @@
                     {% for comment in comments %}
                         {% if comment.post.id == post.id %}
                             <p>{{comment.text}}</p>
-                            <p><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> commented on {{comment.created_at}}</p>
+                            <p><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> <img src="{{comment.commenter.image.url}}" width="20" height="20" alt="User's Image"> commented on {{comment.created_at}}</p>
                             {% if comment.commenter.id == request.session.id  %}
                                 <form action="comment/{{comment.id}}/delete" method="post">
                                     {% csrf_token %}
@@ -57,7 +78,7 @@
                 </form>
             {% endfor %}
             <div>
-                <form action="/add" method="post">
+                <form action="/add" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label>
                             Add Question or Share your knowledge: 
@@ -68,25 +89,21 @@
                             <textarea rows=5 cols=25 type="text" name="content" placeholder="Enter text"></textarea>
                     </label>
                     <input type="submit" value="Post">
-                </form>
-                <form action="uploadfile" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="file" name="postfile">
-                    <button type="submit">Upload</button>
+                
+                    
+                    <input type="file" name="myfile">
+                    
                 </form>
             </div>
 
             <ul class="pagination">
-                
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-            
-            </ul> 
+                    <li><a href="/page1">1</a></li>
+                    <li><a href="/page2">2</a></li>
+                    <li><a href="/page3">3</a></li>
+                    <li><a href="/page4">4</a></li>
+                    <li><a href="/page5">5</a></li>
+            </ul>
 
         </div>
-            
     </body>
 </html>

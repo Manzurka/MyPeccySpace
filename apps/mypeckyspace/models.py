@@ -68,10 +68,37 @@ class UserManager(models.Manager):
                 errors['login'] = "We could not match this email address to any user in our database!"
         
         return errors
+    def update_validation(self, postData):
+        errors={}
+        if len(postData['name'])>0:
+            if len(postData['name']) < 2:
+                errors['name']="Name cannot be less than 2 characters!"
+            if not NAME_REGEX.match(postData['name']):
+                errors['name']="Invalid Name!"
+        else:
+            errors['name']="Name is required!"
+        
+        if len(postData['username'])>0:
+            if len(postData['username']) < 2:
+                errors['user']="Username cannot be less than 2 characters!"
+            if not NAME_REGEX.match(postData['username']):
+                errors['user']="Invalid username!"
+        else: 
+             errors['user']="Username is required!"
 
-def user_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+        
+        if len(postData['password'])>0:
+            if len(postData['password']) < 8:
+                errors['password']="Password is less than 8 characters!"
+        else:
+             errors['password']="Password is required!"
+
+        if postData['pw_confirmation']!= postData['password']:
+            errors['pw_confirmation']="Password should match!"
+
+
+        return errors
+
 
 class User(models.Model):
     name=models.CharField(max_length=255)
@@ -80,19 +107,16 @@ class User(models.Model):
     location=models.CharField(max_length=255)
     skill=models.CharField(max_length=255)
     password=models.CharField(max_length=255)
-    image=models.ImageField(upload_to=user_directory_path, default=None)
+    image=models.ImageField(upload_to='images/', default=None)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     objects=UserManager()
 
-# def file_directory_path(instance, filename):
-#     # file will be uploaded to MEDIA_ROOT/post_<id>/<filename>
-#     return 'post_{0}/{1}'.format(instance.post.id, filename)
 
 class Post(models.Model):
     title=models.CharField(max_length=255)
     content=models.TextField()
-    uploaded_file=models.FileField(upload_to="static/media/documents/")
+    uploaded_file=models.FileField(upload_to='documents/', default=None)
     creator=models.ForeignKey(User, related_name="posts")
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)

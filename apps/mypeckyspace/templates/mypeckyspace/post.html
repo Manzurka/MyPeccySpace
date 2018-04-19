@@ -13,7 +13,16 @@
             </div>
             <h2>{{post.title}}</h2>
             <p>{{post.content}}</p>
-            <h4>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> on {{post.created_at}}</h4>
+            {% if post.uploaded_file %}
+                <img src="{{post.uploaded_file.url}}" width="100" alt="Attached File">
+            {% endif %}
+           
+            <h4>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"> on {{post.created_at}}</h4>
+            <form action="{{post.id}}/uploadfile" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="myfile">
+                <button type="submit">Upload</button>
+            </form>
                 {% for comment in comments %} 
                     {% if comment.post.id == post.id %}
                         <p>{{comment.text}}</p>
@@ -46,7 +55,7 @@
                 </label>
                 <input type="submit" value="Post">
             </form>
-            <form action="upload" method="post" enctype="multipart/form-data">
+            <form action="{{post.id}}/uploadfile" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="file" name="myfile">
                 <button type="submit">Upload</button>

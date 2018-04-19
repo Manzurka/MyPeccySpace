@@ -1,6 +1,6 @@
 #links {
     position: relative;
-    left:800px;
+    left:900px;
 }
 
 #scrollbar {
@@ -13,9 +13,10 @@
     height: 100px;
 
 }
-
-.checked {
-    color: orange;
+.errors {
+    color:red;
+    font-weight:bold;
+    padding-left:20px;
 }
 
 /* Scrollbar styles */

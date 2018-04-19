@@ -8,18 +8,24 @@
     </head>
 
     <body>
+        <a href="/dashboard">Go Back</a>
+        <h2>Search results...</h2>
        {% for result in results %}
             <h3>{{result.title}}</h3>
             <p>{{result.content}}</p>
-            
             <h4>Comments</h4>
             {% for comment in comments %} 
                 {% if comment.post.id == result.id %}
                     <p>{{comment.text}}</p>
                     <p><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> commented on {{comment.created_at}}</p>
                 {% endif %}
-               
             {% endfor %}
+            <form action="{{result.id}}/comment" method="post">
+                {% csrf_token %}
+                <input type="text" name="text" placeholder="Enter comment"> 
+                <input type="submit" value="Comment">
+            </form>
         {% endfor %}
+      
     </body>
  </html>

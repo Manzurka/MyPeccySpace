@@ -3,7 +3,7 @@
          <meta charset="utf-8">
          <title>User {{request.session.name}}</title>
          {% load static %}
-         <link rel="stylesheet" href="{% static 'mypeckyspace/style.css' %}">
+         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
     </head>
     <body>
         <main>
@@ -12,19 +12,24 @@
                 <a href="/">Logout</a> 
             </div>
             <h1>{{user.name}}'s profile</h1>
+            
+            {% ifequal user.image None %}
+                <img src="{% static "media/peccy.png" %}" width="200" alt="Default Image">
+            {% else %}
+                <img src="{{user.image.url}}" width="200" alt="User's Image">
+            {% endifequal %}
+            
             <h3>Username: {{user.username}}</h3>
             <h3>Location: {{user.location}}</h3>
             <h3>Skill set: {{user.skill}}</h3>
-            <h3>Awards:</h3>
+            <h3>Awards or certifications:</h3>
             <ul>
-            {% for award in awards %}
-                {% if award.users.id == request.session.id %}
-                    <li>{{award.award}}</li>
-                {% endif %}
-            {% endfor %}
+                {% for user_award in user_awards %}
+                        <li>{{user_award.award}}</li>
+                {% endfor %}
             </ul>
-            {% if award.users.id == request.session.id %}
-            <form action="/awards" method="post">
+            {% if user.id == request.session.id %}
+            <form action="{{user.id}}/awards" method="post">
                 {% csrf_token %}
                 <label> 
                        <input type="text" name="award" placeholder="Enter award" style="margin-left: 49px;">
@@ -33,11 +38,9 @@
                 <input type="submit" value="Add award">
             </form>
             {% endif %}
-            {% if user.image %}
-                <p><img src="{{user.image.url}}" width="200" alt="User's Image"></p>
-            {% else %}
-                <p><img src="static/media/peccy.png" width="200" alt="User's Image"></p>
-            {% endif %}
+           
+           
+
             {% if user.id == request.session.id %}
                 <a href="{{user.id}}/edit">Edit my portfolio</a>
             {% endif %}

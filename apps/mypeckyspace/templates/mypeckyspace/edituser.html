@@ -5,7 +5,6 @@
          {% load static %}
          <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     </head>
     <body>
         <main>
@@ -42,56 +41,57 @@
                         Email: <input type="email" name="email"  placeholder="Enter your email address" value="{{user.email}}" readonly>
                     </label>
                 </div>
-                {% for message in messages %}
-                    {% if 'email' in message.extra_tags %}
-                        <p class="errors">{{message}}</p>
-                    {% endif %}
-                {% endfor%}
+                <p class="errors">*The email address cannot be changed.</p>
                 <div>
                         <br>
                     <label>
                         Skill: 
                         <select name="skill">
                                 <option selected value="{{user.skill}}">{{user.skill}}</option>
-                                <option value="IIDP">IIDP</option>
-                                <option value="FBA">FBA</option>
-                                <option value="M@">M@</option>
+                                {% if user.skill != 'IIDP' %}
+                                    <option value="IIDP">IIDP</option>
+                                {% endif%}
+                                {% if user.skill != 'FBA' %}
+                                    <option value="FBA">FBA</option>
+                                {% endif%}
+                                {% if user.skill != 'M@' %}
+                                    <option value="M@">M@</option>
+                                {% endif%}
                         </select>
                     </label>
                 </div>
-                {% for message in messages %}
-                    {% if 'skill' in message.extra_tags %}
-                        <p class="errors">{{message}}</p>
-                    {% endif %}
-                {% endfor%}
+                
                 <div>
                     <label>
                     Location: 
                     <select name="location">
                             <option selected value="{{user.location}}">{{user.location}}</option>
-                           
-                                <option value="AZA">AZA</option>
-                                <option value="SJO">SJO</option>
-                                <option value="GFK">GFK</option>
-                                <option value="SEA">SEA</option>
-                                <option value="HYD">HYD</option>
-                            
+                                {% if user.location != 'AZA' %}
+                                    <option value="AZA">AZA</option>
+                                {% endif %}
+                                {% if user.location != 'SJO' %}
+                                    <option value="SJO">SJO</option>
+                                {% endif %}
+                                {% if user.location != 'GFK' %}
+                                    <option value="GFK">GFK</option>
+                                {% endif %}
+                                {% if user.location != 'SEA' %}
+                                    <option value="SEA">SEA</option>
+                                {% endif %}
+                                {% if user.location != 'HYD' %}
+                                    <option value="HYD">HYD</option>
+                                {% endif %}
                     </select>
                     </label>
-                {% for message in messages %}
-                    {% if 'location' in message.extra_tags %}
-                        <p class="errors">{{message}}</p>
-                    {% endif %}
-                {% endfor%}
                 </div>
             <div>
                 <label>
-                    Password: <input type="password" name="password"  placeholder="Create a password (8 char)" style="margin-left: 57px;" >
+                    Password: <input type="password" name="password"  placeholder="New or old password" style="margin-left: 57px;" >
                 </label>
                 {% for message in messages %}
-                {% if 'password' in message.extra_tags %}
-                    <p class="errors">{{message}}</p>
-                {% endif %}
+                    {% if 'password' in message.extra_tags %}
+                        <p class="errors">{{message}}</p>
+                    {% endif %}
                 {% endfor %}
             </div>
             <div>
@@ -109,9 +109,15 @@
             </div>
                 <input type="submit" value="Save">
         </form>
+            Profile picture:
+            {% for message in messages %}
+                {% if 'info' in message.extra_tags %}
+                <p class="errors">{{message}}</p>
+                {%endif%}
+            {% endfor%}
         <form action="upload" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="file" name="myfile">
+            <input type="file" name="image">
             <button type="submit">Upload</button>
         </form>
         </main>
