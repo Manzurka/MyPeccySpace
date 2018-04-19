@@ -1,0 +1,65 @@
+<html>
+    <head>
+         <meta charset="utf-8">
+         <title>Post {{post.title}}</title>
+         {% load static %}
+         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
+    </head>
+    <body>
+        <main>
+            <div id="links">
+                <a href="/dashboard">Home</a> 
+                <a href="/">Logout</a> 
+            </div>
+            <h2>{{post.title}}</h2>
+            <p>{{post.content}}</p>
+            {% if post.uploaded_file %}
+                <img src="{{post.uploaded_file.url}}" width="100" alt="Attached File">
+            {% endif %}
+           
+            <h4>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"> on {{post.created_at}}</h4>
+            <form action="{{post.id}}/uploadfile" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="myfile">
+                <button type="submit">Upload</button>
+            </form>
+                {% for comment in comments %} 
+                    {% if comment.post.id == post.id %}
+                        <p>{{comment.text}}</p>
+                        <p><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> commented on {{comment.created_at}}</p>
+                    {% endif %}
+                    {% if comment.commenter.id == request.session.id  %}
+                    <form action="comment/{{comment.id}}/delete" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                    {% endif %}
+                {% endfor %}
+                <form action="{{post.id}}/comment" method="post">
+                    {% csrf_token %}
+                    <label> 
+                           <input type="text" name="text" placeholder="Enter comment" style="margin-left: 49px;"> 
+                    </label>
+                    <input type="submit" value="Comment">
+                </form>
+        </main>
+        <div>
+            <form action="/add" method="post">
+                {% csrf_token %}
+                <label>
+                    Add Question or Share your knowledge:
+                    <br>
+                    <input type="text" name="title" placeholder="Enter title">
+                    <br>
+                    <textarea type="text" name="content" placeholder="Enter text"></textarea>
+                </label>
+                <input type="submit" value="Post">
+            </form>
+            <form action="{{post.id}}/uploadfile" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="myfile">
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </body>
+</html>
