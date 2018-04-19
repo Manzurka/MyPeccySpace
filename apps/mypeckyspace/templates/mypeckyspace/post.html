@@ -3,22 +3,24 @@
          <meta charset="utf-8">
          <title>Post:'{{post.title}}'</title>
          {% load static %}
-         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
+         <link rel="stylesheet" href="{% static 'mypeckyspace/css/post.css.css' %}">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     </head>
     <body>
         <main>
             <div id="links">
-                <a href="/dashboard">Home</a> 
-                <a href="/">Logout</a> 
+                <a href="/dashboard">Home</a>
+                <a href="/">Logout</a>
             </div>
             <h2>{{post.title}}</h2>
             <p>{{post.content}}</p>
             {% if post.upload %}
                 <a href="{{post.id}}/file"><img src="{{post.upload.url}}" width="100" alt="Attached File"></a>
             {% endif %}
-           
+
             <h4>Posted by <a href="/user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}"><img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"></a> on {{post.created_at}}</h4>
-            
+
             {% if post.creator.id == request.session.id %}
             <form action="{{post.id}}/uploadfile" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -26,7 +28,7 @@
                 <button type="submit">Upload</button>
             </form>
             {% endif %}
-            {% for comment in comments %} 
+            {% for comment in comments %}
                 {% if comment.post.id == post.id %}
                     <p>{{comment.text}}</p>
                     <p><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> commented on {{comment.created_at}}</p>
@@ -40,8 +42,8 @@
             {% endfor %}
             <form action="{{post.id}}/comment" method="post">
                 {% csrf_token %}
-                <label> 
-                        <input type="text" name="text" placeholder="Enter comment" style="margin-left: 49px;"> 
+                <label>
+                        <input type="text" name="text" placeholder="Enter comment" style="margin-left: 49px;">
                 </label>
                 <input type="submit" value="Comment">
             </form>
@@ -51,7 +53,7 @@
             <form action="/add" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label>
-                        Add Question or Share your knowledge: 
+                        Add Question or Share your knowledge:
                         <br>
                         <input type="text" name="title" placeholder="Enter title">
                         <br>
@@ -59,10 +61,13 @@
                         <textarea rows=5 cols=25 type="text" name="content" placeholder="Enter text"></textarea>
                 </label>
                 <input type="submit" value="Post">
-                
+
                 <p>Screenshot: <input type="file" name="myfile"> </p>
             </form>
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

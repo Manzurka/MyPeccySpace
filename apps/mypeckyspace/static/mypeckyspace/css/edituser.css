@@ -1,6 +1,19 @@
+body {
+  background-image: url('https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/56beb96f16e0096a893b159f2db951dc');
+  font-family: 'Raleway', sans-serif;
+}
+
+h2 {
+  margin-left: 20px;
+}
+
 main {
   margin-left: 20px;
   font-family: 'Raleway', sans-serif;
+  background-color: white;
+  width: 450px;
+  padding: 20px;
+  margin-top: 90px;
 }
 
 .errors, #links a {
