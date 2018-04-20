@@ -43,28 +43,44 @@ h5 {
     position: absolute;
     margin:20px;
     padding:20px;
-    width: 45%;
-    height: 40px;
-}
-
-.right-side {
-    position: relative;
-    left: 900px;
-    margin:20px;
-    padding:20px;
-    width: 40%;
-    font-size: 26px;
-}
-
-.errors {
-    color:red;
+    background-color: #ff9a01;
+    /* width: 200px; */
+  }
+  .row label {
     font-weight:bold;
-    padding-left:20px;
-}
+  }
 
-footer {
-  background-color: #ff9a01;
-  text-align: center;
-  margin-bottom: 0px;
-  margin-top: 10px;
-}
+  .row input {
+    padding-left: 2px;
+  }
+
+  .left-side {
+      position: absolute;
+      margin:20px;
+      padding:20px;
+      width: 45%;
+      height: 40px;
+  }
+  
+  .right-side {
+      position: relative;
+      left: 900px;
+      margin:20px;
+      padding:20px;
+      width: 40%;
+      font-size: 26px;
+  }
+  
+  .errors {
+      color:red;
+      font-weight:bold;
+      padding-left:20px;
+  }
+  
+  footer {
+    background-color: #ff9a01;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+  
