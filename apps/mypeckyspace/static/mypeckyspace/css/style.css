@@ -1,0 +1,78 @@
+.jumbotron {
+    background-image: url('https://clearit.ca/canadian-customs-broker-blog/wp-content/uploads//2018/03/Screen-Shot-2018-03-16-at-4.12.07-PM.png');
+    background-size: 500px;
+    height: 290px;
+  
+  }
+  
+  .container {
+    background-color: #ff9a01;
+    height: 150px;
+    margin-top: -40px;
+    color: white;
+    font-size: 50px;
+  }
+  
+  ul {
+    padding-left: 0px;
+    text-align: left;
+  }
+  
+  ul li{
+    display: inline;
+    padding-right: 10px;
+    color: red;
+  }
+  
+  h5 {
+    color: red;
+  }
+  
+  .welcome {
+    display: inline-block;
+    vertical-align: top;
+    border:3px solid black;
+    border-radius: 20px;
+    margin:20px;
+    padding:20px;
+    background-color: #ff9a01;
+    /* width: 200px; */
+  }
+  .row label {
+    font-weight:bold;
+  }
+
+  .row input {
+    padding-left: 2px;
+  }
+
+  .left-side {
+      position: absolute;
+      margin:20px;
+      padding:20px;
+      width: 45%;
+      height: 40px;
+  }
+  
+  .right-side {
+      position: relative;
+      left: 900px;
+      margin:20px;
+      padding:20px;
+      width: 40%;
+      font-size: 26px;
+  }
+  
+  .errors {
+      color:red;
+      font-weight:bold;
+      padding-left:20px;
+  }
+  
+  footer {
+    background-color: #ff9a01;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+  
