@@ -1,0 +1,147 @@
+<html>
+    <head>
+         <meta charset="utf-8">
+         <title>Edit Profile for {{request.session.name}}</title>
+         {% load static %}
+         <link rel="stylesheet" href="{% static 'mypeckyspace/css/edituser.css' %}">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Lora" rel="stylesheet">
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+    </head>
+    <body>
+
+      <div class="brand">
+        <h2>MyPeccySpace</h2>
+      </div>
+
+        <main>
+        <div id="links" align='center'>
+            <a href="/dashboard" class="btn btn-light">Home <i class="fas fa-home"></i></a>
+            <a href="/" class="btn btn-light">Logout <i class="fas fa-sign-out-alt"></i></a>
+        </div>
+
+        <br>
+
+        <h3>Edit your Profile <i class="far fa-user"></i></h3>
+
+        <br>
+
+        <form action="update" method="post">
+            {% csrf_token %}
+            <div>
+                <label>
+                    Name: <input type="text" name="name" placeholder="Enter your name" value="{{user.name}}">
+                </label>
+            </div>
+                {% for message in messages %}
+                    {% if 'name' in message.extra_tags %}
+                        <p class="errors">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            <div>
+
+                <label>
+                   Username: <input type="text" name="username"  placeholder="Enter your username" value="{{user.username}}">
+                </label>
+            </div>
+            {% for message in messages %}
+                {% if 'user' in message.extra_tags %}
+                    <p class="errors">{{message}}</p>
+                {% endif %}
+            {% endfor%}
+            <div>
+
+                        <label>
+                        Email: <input type="email" name="email"  placeholder="Enter your email address" value="{{user.email}}" readonly>
+                    </label>
+                </div>
+                <p class="errors"><strong>*The email address cannot be changed.</strong></p>
+                <div>
+
+                    <label>
+                        Skill:
+                        <select name="skill">
+                                <option selected value="{{user.skill}}">{{user.skill}}</option>
+                                {% if user.skill != 'IIDP' %}
+                                    <option value="IIDP">IIDP</option>
+                                {% endif%}
+                                {% if user.skill != 'FBA' %}
+                                    <option value="FBA">FBA</option>
+                                {% endif%}
+                                {% if user.skill != 'M@' %}
+                                    <option value="M@">M@</option>
+                                {% endif%}
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                    Location:
+                    <select name="location">
+                            <option selected value="{{user.location}}">{{user.location}}</option>
+                                {% if user.location != 'AZA' %}
+                                    <option value="AZA">AZA</option>
+                                {% endif %}
+                                {% if user.location != 'SJO' %}
+                                    <option value="SJO">SJO</option>
+                                {% endif %}
+                                {% if user.location != 'GFK' %}
+                                    <option value="GFK">GFK</option>
+                                {% endif %}
+                                {% if user.location != 'SEA' %}
+                                    <option value="SEA">SEA</option>
+                                {% endif %}
+                                {% if user.location != 'HYD' %}
+                                    <option value="HYD">HYD</option>
+                                {% endif %}
+                    </select>
+                    </label>
+                </div>
+            <div>
+                <label>
+                    Password: <input type="password" name="password"  placeholder="New or old password" style="margin-left: 57px;" >
+                </label>
+                {% for message in messages %}
+                    {% if 'password' in message.extra_tags %}
+                        <p class="errors">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div>
+
+                        <label>
+                            PW Confirmation:
+                            <input type="password" name="pw_confirmation"  placeholder="Re-enter your password" style="margin-left: 3px;">
+                        </label>
+
+                {% for message in messages %}
+                    {% if 'pw_confirmation' in message.extra_tags %}
+                        <p class="errors">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+                <input type="submit" value="Save Profile" class="btn-sumbit btn">
+        </form>
+            Profile picture:
+            <!-- {% for message in messages %}
+                {% if 'info' in message.extra_tags %}
+                <p class="errors">{{message}}</p>
+                {%endif%}
+            {% endfor%} -->
+        <form action="upload" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image">
+            <br>
+            <br>
+            <button type="submit" class="btn">Upload</button>
+        </form>
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+body {
+  background-image: url('https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/56beb96f16e0096a893b159f2db951dc');
+  font-family: 'Raleway', sans-serif;
+}
+
+.brand {
+  margin-left: 20px;
+  padding: 20px;
+  color: white;
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+main {
+  margin-left: 20px;
+  font-family: 'Raleway', sans-serif;
+  background-color: white;
+  width: 450px;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.errors, #links a {
+  color: #ff9800;
+}
+
+.btn-sumbit {
+  background-color: #ff9800;
+}

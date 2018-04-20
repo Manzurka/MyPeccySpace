@@ -1,0 +1,26 @@
+body {
+  margin: auto;
+}
+
+main {
+  margin-left: : 20px;
+  background-color:  #ff9800;
+  padding: 20px;
+}
+
+#links a {
+  color: #ff9800;
+  margin-bottom: 10px;
+}
+
+.comments {
+  margin-left: 40px;
+}
+
+.side_image {
+  position: relative;
+  left: 1000px;
+  bottom: 900px;
+  border-radius: 20px;
+  width: 500px;
+}

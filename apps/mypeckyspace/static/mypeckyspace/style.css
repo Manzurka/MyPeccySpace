@@ -1,12 +1,12 @@
 body{
     width:1000px;
 }
-    
+
 .welcome {
-    display:inline-block; 
-    vertical-align:top; 
-    border:3px solid black; 
-    margin:20px; 
+    display:inline-block;
+    vertical-align:top;
+    border:3px solid black;
+    margin:20px;
     padding:20px;
 }
 #links {
@@ -45,11 +45,11 @@ border-radius: 10px;
 
 ::-webkit-scrollbar-thumb {
 border-radius: 10px;
-background: #ccc;  
+background: #ccc;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-background: #999;  
+background: #999;
 }
 
 .errors {

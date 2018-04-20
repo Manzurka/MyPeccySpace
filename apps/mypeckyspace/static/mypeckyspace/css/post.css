@@ -1,0 +1,36 @@
+main {
+  margin: 20px;
+  padding: 35px;
+  border-radius: 5px;
+  font-family: 'Raleway', sans-serif;
+  background-image: url('http://www.brilliantplayground.com/wp-content/uploads/2014/06/soft-golden-background-tile.jpg');
+}
+
+#links a, .btn, .post {
+  color: #ff9800;
+}
+
+.btns {
+  background-color: #ff9a01;
+  color: black;
+}
+
+.comments {
+  margin-left: 50px;
+}
+
+
+/* New post box */
+#postbox {
+   border: 2px dotted #ff9a01;
+   border-radius: 15px;
+   padding: 40px;
+   background-color:white;
+   width:600px;
+}
+
+#postbox  h3, label {
+   font-family: 'Black Han Sans', sans-serif;
+   color: #ff9a01;
+}
+/* New post box */
