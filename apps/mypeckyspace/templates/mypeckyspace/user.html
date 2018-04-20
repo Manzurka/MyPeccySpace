@@ -3,48 +3,67 @@
          <meta charset="utf-8">
          <title>User {{request.session.name}}</title>
          {% load static %}
-         <link rel="stylesheet" href="{% static 'mypeckyspace/style2.css' %}">
+         <link rel="stylesheet" href="{% static 'mypeckyspace/css/user.css' %}">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     </head>
     <body>
         <main>
+
+          <div align='center'>
+
             <div id="links">
-                <a href="/dashboard">Home</a> 
-                <a href="/">Logout</a> 
+                <a href="/dashboard" class="btn btn-light">Home <i class="fas fa-home"></i></a>
+                <a href="/" class="btn btn-light">Logout <i class="fas fa-sign-out-alt"></i></a>
             </div>
+
+
+
             <h1>{{user.name}}'s profile</h1>
-            
-            {% ifequal user.image None %}
-                <img src="{% static "media/peccy.png" %}" width="200" alt="Default Image">
+
+            {% if user.image %}
+              <img src="{{user.image.url}}" class="img-thumbnail" width="200" alt="User's Image">
             {% else %}
-                <img src="{{user.image.url}}" width="200" alt="User's Image">
-            {% endifequal %}
-            
+              <img src="{% static "media/peccy.png" %}" width="200" alt="Default Image" class="img-thumbnail">
+            {% endif %}
+
             <h3>Username: {{user.username}}</h3>
             <h3>Member since: {{user.created_at.day}}/{{user.created_at.month}}/{{user.created_at.year}}</h3>
             <h3>Location: {{user.location}}</h3>
-            <h3>Skill set: {{user.skill}}</h3>
+            <h3>Skill Set: {{user.skill}}</h3>
             <h3>Awards or certifications:</h3>
             <ul>
                 {% for user_award in user_awards %}
-                        <li>{{user_award.award}}</li>
+                        <li class="works">{{user_award.award}} <i class="fas fa-trophy"></i></li>
                 {% endfor %}
             </ul>
 
             {% if user.id == request.session.id %}
             <form action="{{user.id}}/awards" method="post">
                 {% csrf_token %}
-                <label> 
-                       <input type="text" name="award" placeholder="Enter award" style="margin-left: 49px;">
+                <label>
+                       <input type="text" name="award" placeholder="Enter award">
                        <input type="hidden" name="user_id" value="{{user.id}}">
+
                 </label>
-                <input type="submit" value="Add award">
+                <input type="submit" value="Add award" class="btn">
+
+
             </form>
             {% endif %}
-           
-           
+
+
             {% if user.id == request.session.id %}
                 <a href="{{user.id}}/edit">Edit my portfolio</a>
             {% endif %}
         </main>
+
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
