@@ -41,7 +41,14 @@
                     {% if post.upload %}
                         <a href="post/{{post.id}}/file"><img src="{{post.upload.url}}" width="100" alt="Attached File"></a>
                     {% endif %}
-                    <p class="italic">posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}"><img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"></a> on {{post.created_at}}</p>
+                    <p class="italic">posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> 
+                    <a href="/user/{{post.creator.id}}">
+                    {% if post.creator.image %}
+                        <img src="{{post.creator.image.url}}" width="20" alt="User's Image">
+                    {% else %}
+                        <img src="{% static "media/peccy.png" %}" width="20" alt="Default Image">
+                    {% endif %}
+                    </a> on {{post.created_at}}</p>
                     {% if post.creator.id == request.session.id  %}
                     <form action="{{post.id}}/delete" method="post">
                         {% csrf_token %}
@@ -54,7 +61,15 @@
                         {% for comment in comments %}
                             {% if comment.post.id == post.id %}
                                 <p>{{comment.text}}</p>
-                                <p class="italic"><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> <img src="{{comment.commenter.image.url}}" width="20" height="20" alt="User's Image"> commented on {{comment.created_at.time}}</p>
+                                <p class="italic"><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> 
+                                <a href="user/{{comment.commenter.id}}">
+                                {% if comment.commenter.image %}
+                                    <img src="{{comment.commenter.image.url}}" width="20" alt="User's Image">
+                                {% else %}
+                                    <img src="{% static "media/peccy.png" %}" width="20" alt="Default Image">
+                                {% endif %}
+                                </a>
+                                 commented on {{comment.created_at.time}}</p>
                                 {% if comment.commenter.id == request.session.id  %}
                                     <form action="comment/{{comment.id}}/delete" method="post">
                                         {% csrf_token %}
