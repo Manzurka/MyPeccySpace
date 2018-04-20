@@ -1,8 +1,56 @@
-#links {
-    position: relative;
-    left:900px;
+body {
+    margin: auto;
+    background-color: #ff9a01;
 }
 
+#links a {
+    color: #ff9a01;
+    float:right;
+}
+
+#postbox  h3, label {
+    font-family: 'Black Han Sans', sans-serif;
+    color: #ff9a01;
+    
+}
+li {
+    list-style-type: none;
+}
+
+.btn {
+    background-color: #ff9a01;
+}
+
+h2 {
+    background-color: #ff9a01;
+    border-radius:5px;
+    padding:5px;
+
+}
+#postbox {
+    position: relative;
+    left:1100px;
+    top:250px;
+    border: 2px dotted #ff9a01;
+    padding: 40px;
+    width: 600px;
+    background-color:white;
+
+}
+form {
+    margin:0px;
+    padding: 10px;
+}
+main {
+    position: absolute;
+    width: 60%;
+    margin:20px;
+    padding:20px;
+
+}
+input {
+    padding-left:2px;
+}
 #scrollbar {
     /* display:inline-block;
     vertical-align: top; */
