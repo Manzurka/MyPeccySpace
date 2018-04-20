@@ -5,14 +5,17 @@
          <meta name="viewport" content="width=device-width, initial-scale=1">
          {% load static %}
          <link rel="stylesheet" href="{% static 'mypeckyspace/css/dashboard.css' %}">
-         <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Lora" rel="stylesheet">
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     <body>
-        <main>
-            <h1>Welcome <a href="user/{{request.session.id}}">{{request.session.name}}</a>!</h1>
-            <nav class="navbar navbar-light bg-light">
+
+        <div id="first">
+                <h1>Welcome <a href="user/{{request.session.id}}">{{request.session.name}}</a></h1>
+                <h1 id="webname">MyPeccySpace</h1>
+        </div>
+        <nav class="navbar navbar-light bg-light">
             <div  id="links">
                 <a class="btn btn-light" href="/user/{{request.session.id}}/edit">Edit my profile <i class="fas fa-pencil-alt"></i></i></a> 
                 <a class="btn btn-light" href="/user/{{request.session.id}}">Show my profile <i class="far fa-user"></i></a> 
@@ -21,29 +24,28 @@
             {% for message in messages %}
                 <li class="errors">{{ message }}</li>
             {% endfor %}
-           
+            
             <form method="get" action="/results">
                 {% csrf_token %}
                 <input  id="search_box" type="text" name="search_box"  placeholder="Enter keyword" >
                 <button class="btn" id="search_submit" type="submit">Search <i class="fas fa-search"></i></button>
             </form>
-            </nav>
+        </nav>
+        <h2>Recent Posts:</h2>
+
+        <main>
             <div id="posts">
-                <h2>Recent Posts:</h2>
-        
                 {% for post in posts %}
-                    <h3 class="post"><a href="post/{{post.id}}">{{post.title}}</a></h3>
-                    <p class="post">{{post.content}}</p>
+                    <h3><a href="post/{{post.id}}">{{post.title}}</a></h3>
+                    <p>{{post.content}}</p>
                     {% if post.upload %}
                         <a href="post/{{post.id}}/file"><img src="{{post.upload.url}}" width="100" alt="Attached File"></a>
                     {% endif %}
-                    <p>Posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}"><img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"></a> on {{post.created_at}}</p>
+                    <p class="italic">posted by <a href="user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}"><img src="{{post.creator.image.url}}" width="20" height="20" alt="User's Image"></a> on {{post.created_at}}</p>
                     {% if post.creator.id == request.session.id  %}
                     <form action="{{post.id}}/delete" method="post">
                         {% csrf_token %}
-                       
                         <i class="far fa-trash-alt" ></i> <input class="btn btn-danger" type="submit" value="Delete"> 
-                     
                     </form>
                     {% endif %}
                     {% if comments %}
@@ -52,7 +54,7 @@
                         {% for comment in comments %}
                             {% if comment.post.id == post.id %}
                                 <p>{{comment.text}}</p>
-                                <p><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> <img src="{{comment.commenter.image.url}}" width="20" height="20" alt="User's Image"> commented on {{comment.created_at}}</p>
+                                <p class="italic"><a href="user/{{comment.commenter.id}}">{{comment.commenter.username}}</a> <img src="{{comment.commenter.image.url}}" width="20" height="20" alt="User's Image"> commented on {{comment.created_at.time}}</p>
                                 {% if comment.commenter.id == request.session.id  %}
                                     <form action="comment/{{comment.id}}/delete" method="post">
                                         {% csrf_token %}
@@ -63,52 +65,48 @@
                         {% endfor %}
                     </div>
                     {% endif %}  
-                    <form action="{{post.id}}/comment" method="post">
+                    <form class = "commentbox" action="{{post.id}}/comment" method="post">
                         {% csrf_token %}
                         <input type="text" name="text" placeholder="Enter comment"> 
-                        <input   class="btn"  type="submit" value="Comment">
+                        <input  class="btn"  type="submit" value="Comment">
                     </form>
                 {% endfor %}
-                <nav aria-label="Page navigation example">
-                        <ul class="pagination"> 
-                                <li class="page-item"><a class="page-link" href="">Pages :</a></li>
-                                <li class="page-item"><a class="page-link" href="/page1">1</a></li>
-                                <li class="page-item"><a class="page-link" href="/page2">2</a></li>
-                                <li class="page-item"><a class="page-link" href="/page3">3</a></li>
-                                <li class="page-item"><a class="page-link" href="/page4">4</a></li>
-                                <li class="page-item"><a class="page-link" href="/page5">5</a></li>
-                        </ul>
-                    </nav>
-              
             </div>
+    
         </main> 
-            <div id="postbox">
-                <form action="/add" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                   
-                    <div class="form-group col-md-6">
-                        <h3>Add Question or Share your knowledge:</h3>
-                        <div class="row">
-                            <label for="title">Title</label>
-                        </div>
-                        <input type="text" name="title" placeholder="Enter title">
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="text">Question or Post</label>
-                        </div>
-                        <textarea rows=5 cols=25 type="text" name="content" placeholder="Enter text"></textarea>
-                    </div>
+        <nav id="pages" aria-label="Page navigation example">
+                <ul class="pagination"> 
+                    <li class="page-item"><a class="page-link" href="">Pages :</a></li>
+                    <li class="page-item"><a class="page-link" href="/page1">1</a></li>
+                    <li class="page-item"><a class="page-link" href="/page2">2</a></li>
+                    <li class="page-item"><a class="page-link" href="/page3">3</a></li>
+                    <li class="page-item"><a class="page-link" href="/page4">4</a></li>
+                    <li class="page-item"><a class="page-link" href="/page5">5</a></li>
+                </ul>
+        </nav>
+        <div id="postbox">
+            <form action="/add" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group col-md-12">
+                    <h3>Add Question or Share your knowledge:</h3>
                     <div class="row">
-                        <label for="myfile">Screenshot:</label>
+                        <label for="title">Title</label>
                     </div>
-                        <input type="file" name="myfile">
-                        <i class="fas fa-cloud-upload-alt"></i> <input class="btn btn-lg mb-4" type="submit" value="Post"> 
-                </form>
-            </div>
-            
-          
-
+                    <input type="text" name="title" placeholder="Enter title">
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="row">
+                        <label for="text">Question or Post</label>
+                    </div>
+                    <textarea rows=5 cols=55 type="text" name="content" placeholder="Enter text"></textarea>
+                </div>
+                <div class="row">
+                    <label for="myfile">Screenshot:</label>
+                </div>
+                    <input type="file" name="myfile">
+                    <i class="fas fa-cloud-upload-alt"></i> <input class="btn btn-lg mb-4" type="submit" value="Post"> 
+            </form>
+        </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

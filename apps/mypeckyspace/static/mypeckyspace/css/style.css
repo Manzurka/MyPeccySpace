@@ -38,7 +38,14 @@
     background-color: #ff9a01;
     /* width: 200px; */
   }
-  
+  .row label {
+    font-weight:bold;
+  }
+
+  .row input {
+    padding-left: 2px;
+  }
+
   .left-side {
       position: absolute;
       margin:20px;
