@@ -21,7 +21,13 @@
                 <a href="{{post.id}}/file"><img src="{{post.upload.url}}" width="100" alt="Attached File" class="img-thumbnail"></a>
             {% endif %}
 
-            <h4>Posted by <a href="/user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}"><img src="{{post.creator.image.url}}" width="30" height="30" alt="User's Image"></a> on {{post.created_at}}</h4>
+            <h4>Posted by <a href="/user/{{post.creator.id}}">{{post.creator.username}}</a> <a href="/user/{{post.creator.id}}">
+              {% if post.creator.image %}
+                  <img src="{{post.creator.image.url}}" width="20" alt="User's Image">
+              {% else %}
+                  <img src="{% static "media/peccy.png" %}" width="20" alt="Default Image">
+              {% endif %}
+            </a> on {{post.created_at}}</h4>
 
             {% if post.creator.id == request.session.id %}
             <form action="{{post.id}}/uploadfile" method="post" enctype="multipart/form-data">
@@ -39,7 +45,13 @@
                 {% if comment.post.id == post.id %}
 
                     <p>{{comment.text}}</p>
-                    <p><a href="/user/{{comment.commenter.id}}">{{comment.commenter.username}} <img src="{{comment.commenter.image.url}}" width="20" height="20" alt="User's Image"></a> commented on {{comment.created_at}}</p>
+                    <p><a href="/user/{{comment.commenter.id}}">{{comment.commenter.username}}
+                    {% if comment.commenter.image %}
+                        <img src="{{comment.commenter.image.url}}" width="20" alt="User's Image">
+                    {% else %}
+                        <img src="{% static "media/peccy.png" %}" width="20" alt="Default Image">
+                    {% endif %}
+                    </a> commented on {{comment.created_at}}</p>
                     <br>
                     {% if comment.commenter.id == request.session.id  %}
                     <form action="comment/{{comment.id}}/delete" method="post">

@@ -19,8 +19,8 @@ main {
 
 .side_image {
   position: relative;
-  left: 1000px;
-  bottom: 900px;
+  left: 1100px;
+  bottom: 1100px;
   border-radius: 20px;
   width: 500px;
 }

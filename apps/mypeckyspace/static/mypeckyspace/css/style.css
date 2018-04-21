@@ -43,8 +43,9 @@ h5 {
     position: absolute;
     margin:20px;
     padding:20px;
-    background-color: #ff9a01;
+    /* background-color: #ff9a01; */
     /* width: 200px; */
+    background-color: white;
   }
   .row label {
     font-weight:bold;
@@ -61,7 +62,7 @@ h5 {
       width: 45%;
       height: 40px;
   }
-  
+
   .right-side {
       position: relative;
       left: 900px;
@@ -70,17 +71,16 @@ h5 {
       width: 40%;
       font-size: 26px;
   }
-  
+
   .errors {
       color:red;
       font-weight:bold;
       padding-left:20px;
   }
-  
+
   footer {
     background-color: #ff9a01;
     text-align: center;
     margin-bottom: 0px;
     margin-top: 10px;
   }
-  
